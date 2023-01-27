@@ -16,7 +16,12 @@ export const HowMuchPowder = ({ navigation }) => {
   const [powderOnHand, setPowderOnHand] = useState(0);
 
   let canLoad = (powderOnHand * 7000) / powderCharge;
-  let displayCanLoad = Math.floor(canLoad);
+
+  if (isNaN(canLoad)) {
+    canLoad = 0;
+  } else {
+    canLoad = Math.ceil(canLoad);
+  }
 
   return (
     <SafeArea>
@@ -26,7 +31,6 @@ export const HowMuchPowder = ({ navigation }) => {
           <Text>I want to use </Text>
           <InputField
             onChangeText={(powderCharge) => setPowderCharge(powderCharge)}
-            value={0}
           />
           <Text> grains of powder per round.</Text>
         </RowContainer>
@@ -35,12 +39,16 @@ export const HowMuchPowder = ({ navigation }) => {
           <Text>And I have </Text>
           <InputField
             onChangeText={(powderOnHand) => setPowderOnHand(powderOnHand)}
-            value={0}
           />
           <Text> pound(s) of powder.</Text>
         </RowContainer>
         <Spacer position="top" size="large" />
-        <AppButton title="Calculate" onSubmit={() => {}} />
+        <AppButton
+          title="Calculate"
+          onSubmit={() => {
+            RunCalculation;
+          }}
+        />
         <Spacer position="top" size="large" />
         <AppButton title="Clear" onSubmit={() => {}} />
         <Spacer position="top" size="medium" />
@@ -48,7 +56,7 @@ export const HowMuchPowder = ({ navigation }) => {
         <Spacer position="top" size="large" />
         <RowContainer>
           <Text>
-            So I will be able to load {displayCanLoad} rounds of ammunition.
+            So I will be able to load {canLoad} rounds of ammunition.
           </Text>
         </RowContainer>
         <Spacer position="top" size="medium" />
