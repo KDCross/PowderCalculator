@@ -17,6 +17,11 @@ export const HowManyRounds = ({ navigation }) => {
 
   let needToHave = (powderCharge * wantToLoad) / 7000;
 
+  const ClearInputs = () => {
+    const powderCharge = setPowderCharge(0);
+    const wantToLoad = setWantToLoad(0);
+  };
+
   return (
     <SafeArea>
       <Spacer position="top" size="xxl" />
@@ -39,10 +44,6 @@ export const HowManyRounds = ({ navigation }) => {
           <Text> rounds of ammunition.</Text>
         </RowContainer>
         <Spacer position="top" size="large" />
-        <AppButton title="Calculate" onSubmit={() => {}} />
-        <Spacer position="top" size="large" />
-        <AppButton title="Clear" onSubmit={() => {}} />
-        <Spacer position="top" size="medium" />
         <Separator />
         <RowContainer>
           <Text>
@@ -51,7 +52,9 @@ export const HowManyRounds = ({ navigation }) => {
         </RowContainer>
         <Spacer position="top" size="medium" />
         <Separator />
-        <Spacer position="top" size="medium" />
+        <Spacer position="top" size="large" />
+        <AppButton title="Clear" onPress={ClearInputs} />
+        <Spacer position="top" size="large" />
         <AppButton
           title="Go Home"
           onPress={() => navigation.navigate("Home")}
